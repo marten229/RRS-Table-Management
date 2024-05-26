@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anzeige</title>
+</head>
+<body>
+    <h1>Tischdetails</h1>
+    <p>Name: {{ request.GET.name }}</p>
+    <p>Tischnummer: {{ request.GET.table_number }}</p>
+
+    <h1>Kundenübersicht</h1>
+    {% for row in all_kunde %}
+        <p>restaurant: {{ row.restaurant}}</p>
+        <p>kunde: {{ row.kunde}}</p>
+        <p>email: {{ row.email}}</p>
+        <p>phone: {{ row.phone}}</p>
+        <p>date: {{ row.date}}</p>
+        <p>time: {{ row.time}}</p>
+        <p>guests: {{ row.guests}}</p>
+        <p>table_number: {{ row.table_number}}</p>
+        <p>special_requests: {{ row.special_requests}}</p>
+    {% endfor %}
+</body>
+</html>

@@ -1,71 +1,55 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tischreservierung</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
-    form {
-        max-width: 400px;
-        margin: 0 auto;
-    }
-    input[type=text], input[type=email], input[type=tel], select, textarea {
-        width: 100%;
-        padding: 10px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-    input[type=submit] {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    input[type=submit]:hover {
-        background-color: #45a049;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tischverwaltung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .table-button {
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            text-decoration: none; /* Remove default underline */
+            color: #333; /* Set text color */
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+
+        .table-button:hover {
+            background-color: #f0f0f0; /* Change background color on hover */
+        }
+    </style>
 </head>
 <body>
-
-<h2>Tischreservierung</h2>
-
-<form>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
-
-    <label for="email">E-Mail:</label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="phone">Telefonnummer:</label>
-    <input type="tel" id="phone" name="phone" required>
-
-    <label for="date">Datum:</label>
-    <input type="date" id="date" name="date" required>
-
-    <label for="time">Uhrzeit:</label>
-    <input type="time" id="time" name="time" required>
-
-    <label for="guests">Anzahl der Gäste:</label>
-    <input type="number" id="guests" name="guests" min="1" required>
-
-    <label for="special_requests">Besondere Wünsche:</label>
-    <textarea id="special_requests" name="special_requests"></textarea>
-
-    <input type="submit" value="Reservieren">
-</form>
-<ul>
-    <li class="nav.item">
-        <a class="nav-link" href="{% url 'success_url' %}">Hinzufügen in die Datenbank</a>
-    </li>
-</ul>
+    <h1>Tischverwaltung</h1>
+    <h2>Restaurantname</h2> <!-- Fügen Sie hier den Namen des Restaurants hinzu -->
+    {% for row in all_items %}
+    <a class="table-button" href="{% url 'anzeigen' %}?name={{ row.name }}&table_number={{ row.table_number }}">
+        {{ row.name }} <br>  <p>, Tischnummer: </p>{{ row.table_number }}
+    </a>
+    {% endfor %}
 </body>
 </html>

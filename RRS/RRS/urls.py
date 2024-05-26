@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from TableManagement.views import tishmanage,success_view
+from TableManagement.views import tishmanage,anzeigen
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tischverwaltung/',tishmanage),
-    path('success/', success_view, name='success_url'),  # Stelle sicher, dass der Name 'success_url' korrekt ist
+    path('anzeige/', anzeigen,name='anzeigen')  
 ]

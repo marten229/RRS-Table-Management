@@ -1,13 +1,14 @@
 from django.shortcuts import render
-from django.shortcuts import render, redirect
-from django import forms
-from .forms import TableForm
-from .models import Table
+
+from .models import Table,Restaurant
 
 
-# Create your views here
+ #Create your views here
 def tishmanage(request):
-    return render(request, 'tischverwaltung.html')
+    all_items=Restaurant.objects.all()
+    return render(request, 'tischverwaltung.html',{'all_items':all_items})
 
-def success_view(request):
-    return render(request, 'success.html')
+
+def anzeigen(request):
+    all_kunde=Table.objects.all()
+    return render(request, 'anzeige.html',{'all_kunde':all_kunde})
