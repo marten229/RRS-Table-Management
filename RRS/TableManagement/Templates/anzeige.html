@@ -6,14 +6,12 @@
     <title>Anzeige</title>
 </head>
 <body>
-    <h1>Tischdetails</h1>
-    <p>Name: {{ request.GET.name }}</p>
-    <p>Tischnummer: {{ request.GET.table_number }}</p>
-
-    <h1>Kundenübersicht</h1>
+ 
+    <h1>Alle Überscihten</h1>
+    <h2>Kundenübersicht</h2>
     {% for row in all_kunde %}
+        <h3>kunde: {{ row.kunde}}</h3>
         <p>restaurant: {{ row.restaurant}}</p>
-        <p>kunde: {{ row.kunde}}</p>
         <p>email: {{ row.email}}</p>
         <p>phone: {{ row.phone}}</p>
         <p>date: {{ row.date}}</p>
@@ -21,6 +19,19 @@
         <p>guests: {{ row.guests}}</p>
         <p>table_number: {{ row.table_number}}</p>
         <p>special_requests: {{ row.special_requests}}</p>
+    {% endfor %}
+
+
+    <h2>Restourantkapazität</h2>
+    {% for login in all_logins %}
+    <div>
+        <h3>restaurant: {{login.name}}</h3>
+        <p>Gesammtkapatitäten: {{login.Totaltable_number}}</p>
+        <p>Anzahl der Tische für 1-4 Personen: {{ login.onetofortable}}</p>
+        <p>Anzahl der Tische für 4-6 Personen: {{ login.fortoeisixtable}}</p>
+        <p>Anzahl der Tische für 6-8 Personen: {{ login.sixtoeighttable}}</p>
+        <p>Anzahl der Tische für mehr als 8 Personen: {{ login.morthaneight}}</p>
+    </div>
     {% endfor %}
 </body>
 </html>

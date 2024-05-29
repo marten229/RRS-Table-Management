@@ -8,11 +8,10 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f8f8;
-            margin: 0;
+            margin: 0px;
             padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
 
         h1, h2 {
@@ -41,15 +40,41 @@
         .table-button:hover {
             background-color: #f0f0f0; /* Change background color on hover */
         }
+        .divcont {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px; /* Optionaler Abstand zum äußeren Container */
+        }
+
+        .divcont div {
+            margin: 20px; /* Optionaler Abstand zwischen den inneren Containern */
+            flex: 1; /* Jeder Container nimmt den gleichen Platz ein */
+        }
+
+        .table-button p {
+            display: inline; /* Macht <p>-Elemente inline, damit sie in einer Zeile bleiben */
+            margin: 0; /* Entfernt den Standardabstand der <p>-Elemente */
+        }
     </style>
 </head>
 <body>
     <h1>Tischverwaltung</h1>
-    <h2>Restaurantname</h2> <!-- Fügen Sie hier den Namen des Restaurants hinzu -->
+    <div class="divcont">
+    <div style="margin: 80px;">
     {% for row in all_items %}
-    <a class="table-button" href="{% url 'anzeigen' %}?name={{ row.name }}&table_number={{ row.table_number }}">
+    <a class="table-button" href="{% url 'anzeigen' %}">
         {{ row.name }} <br>  <p>, Tischnummer: </p>{{ row.table_number }}
     </a>
     {% endfor %}
+    </div>
+       <div style="margin: 80px;">
+    {% for login in all_logins %}
+    <a class="table-button" href="{% url 'anzeigen' %}">
+        {{login.name}}   <p>,Gesammtkapatitäten: </p>{{ login.Totaltable_number}}<p>&nbsp;Sitzplätze</p>
+    </a>
+    {% endfor %}
+    </div>
+    </div>
+
 </body>
 </html>

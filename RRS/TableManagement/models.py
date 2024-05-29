@@ -6,6 +6,18 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name
+    
+class RestaurantLogin(models.Model):
+    name = models.CharField(max_length=100)
+    Totaltable_number = models.IntegerField()
+    onetofortable = models.IntegerField()
+    fortoeisixtable = models.IntegerField()
+    sixtoeighttable = models.IntegerField()
+    morthaneight= models.IntegerField()
+
+    
+    def __str__(self):
+        return self.name
 
 class Table(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
