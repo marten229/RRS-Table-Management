@@ -61,18 +61,11 @@
     <h1>Tischverwaltung</h1>
     <div class="divcont">
     <div style="margin: 80px;">
-    {% for row in all_items %}
-    <a class="table-button" href="{% url 'anzeigen' %}">
-        {{ row.name }} <br>  <p>, Tischnummer: </p>{{ row.table_number }}
-    </a>
-    {% endfor %}
-    </div>
-       <div style="margin: 80px;">
-    {% for login in all_logins %}
-    <a class="table-button" href="{% url 'anzeigen' %}">
-        {{login.name}}   <p>,Gesammtkapatitäten: </p>{{ login.Totaltable_number}}<p>&nbsp;Sitzplätze</p>
-    </a>
-    {% endfor %}
+    
+        <a class="table-button" href="{% url 'anzeigen' %}">
+            <p>Gehe auf deine Restaurant</p>
+        </a>
+
     </div>
     </div>
 

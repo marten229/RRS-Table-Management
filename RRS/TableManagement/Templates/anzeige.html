@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anzeige</title>
+    <style>
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .button-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
  
@@ -22,16 +37,19 @@
     {% endfor %}
 
 
-    <h2>Restourantkapazität</h2>
-    {% for login in all_logins %}
+    <h2>Restaurantkapazität</h2>
+    {% if selected_login %}
     <div>
-        <h3>restaurant: {{login.name}}</h3>
-        <p>Gesammtkapatitäten: {{login.Totaltable_number}}</p>
-        <p>Anzahl der Tische für 1-4 Personen: {{ login.onetofortable}}</p>
-        <p>Anzahl der Tische für 4-6 Personen: {{ login.fortoeisixtable}}</p>
-        <p>Anzahl der Tische für 6-8 Personen: {{ login.sixtoeighttable}}</p>
-        <p>Anzahl der Tische für mehr als 8 Personen: {{ login.morthaneight}}</p>
+        <h3>Restaurant: {{ selected_login.name }}</h3>
+        <p>Gesamtkapazitäten: {{ selected_login.Totaltable_number }}</p>
+        <a href="{% url 'tisch_details'%}" class="button-link"><p>Anzahl der Tische für 1-4 Personen: {{ selected_login.onetofortable }}</p></a>
+        <a href="{% url 'tisch_details'%}" class="button-link"><p>Anzahl der Tische für 4-6 Personen: {{ selected_login.fortoeisixtable }}</p></a>
+        <a href="{% url 'tisch_details'%}" class="button-link"><p>Anzahl der Tische für 6-8 Personen: {{ selected_login.sixtoeighttable }}</p></a>
+        <a href="{% url 'tisch_details'%}" class="button-link"><p>Anzahl der Tische für mehr als 8 Personen: {{ selected_login.morthaneight }}</p></a>
     </div>
-    {% endfor %}
+    {% else %}
+    <p>Das Restaurant "Losteria" wurde nicht gefunden.</p>
+    {% endif %}
+
 </body>
 </html>
