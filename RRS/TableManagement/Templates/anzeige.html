@@ -42,10 +42,10 @@
     <div>
         <h3>Restaurant: {{ selected_login.name }}</h3>
         <p>Gesamtkapazitäten: {{ selected_login.Totaltable_number }}</p>
-        <a href="{% url 'tisch_details'%}" class="button-link"><p>Anzahl der Tische für 1-4 Personen: {{ selected_login.onetofortable }}</p></a>
-        <a href="{% url 'tisch_details'%}" class="button-link"><p>Anzahl der Tische für 4-6 Personen: {{ selected_login.fortoeisixtable }}</p></a>
-        <a href="{% url 'tisch_details'%}" class="button-link"><p>Anzahl der Tische für 6-8 Personen: {{ selected_login.sixtoeighttable }}</p></a>
-        <a href="{% url 'tisch_details'%}" class="button-link"><p>Anzahl der Tische für mehr als 8 Personen: {{ selected_login.morthaneight }}</p></a>
+        <a href="{% url 'tisch_details1'%}" class="button-link"><p>Anzahl der Tische für 1-4 Personen: {{ selected_login.onetofortable }}</p></a>
+        <a href="{% url 'tisch_details2'%}" class="button-link"><p>Anzahl der Tische für 4-6 Personen: {{ selected_login.fortoeisixtable }}</p></a>
+        <a href="{% url 'tisch_details3'%}" class="button-link"><p>Anzahl der Tische für 6-8 Personen: {{ selected_login.sixtoeighttable }}</p></a>
+        <a href="{% url 'tisch_details4'%}" class="button-link"><p>Anzahl der Tische für mehr als 8 Personen: {{ selected_login.morthaneight }}</p></a>
     </div>
     {% else %}
     <p>Das Restaurant "Losteria" wurde nicht gefunden.</p>

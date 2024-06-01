@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tischdetails</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .table-details {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-details p {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .table-details p:nth-child(even) {
+            background-color: gainsboro;
+        }
+
+        .table-details p:hover {
+            background-color: #e6e6e6;
+        }
+
+        #freeCapacity, #totalCapacity, #capacityDifference {
+            background-color: #ff6347; /* Hellrot */
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            right: 10px;
+            margin: 10px;
+        }
+
+        #freeCapacity {
+            top: 10px;
+        }
+
+        #totalCapacity {
+            top: 50px;
+        }
+
+        #capacityDifference {
+            top: 90px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <h1>Aktuell besetzte Tische</h1>
+
+        <div class="table-details">
+            {% for row in kunden %}
+                <p>Tischnummer: {{ row.table_number }}:<br> Name:{{ row.kunde }}<br>Anzahl:{{ row.guests }}<br>Erscheinungszeitpunkt:{{ row.date }},<br>Uhrzeit: {{ row.time }}</p>
+            {% endfor %}
+        </div>
+
+        <p id="totalCapacity">Anzahl der Zeilen: {{ kunden|length }}</p>
+    </div>
+    <div id="freeCapacity">Gesamtkapazität: <span id="totalCapacityValue">{{selected_login.morthaneight}}</span></div>
+    <script>
+        // JavaScript, um die Differenz zu berechnen
+        var totalCapacity = parseInt(document.getElementById('totalCapacityValue').innerText);
+        var occupiedCapacity = parseInt(document.getElementById('totalCapacity').innerText.split(':')[1]);
+        var capacityDifference = totalCapacity - occupiedCapacity;
+        var capacityDifferenceElement = document.createElement('div');
+        capacityDifferenceElement.id = 'capacityDifference';
+        capacityDifferenceElement.textContent = 'Frei Verfügbare Tische: ' + capacityDifference;
+        document.body.appendChild(capacityDifferenceElement);
+    </script>
+</body>
+</html>
