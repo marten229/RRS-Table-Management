@@ -61,6 +61,18 @@
         #capacityDifference {
             top: 90px;
         }
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007BFF;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -74,9 +86,13 @@
             {% endfor %}
         </div>
 
-        <p id="totalCapacity">Anzahl der Zeilen: {{ kunden|length }}</p>
+        <p id="totalCapacity">Anzahl der besetzte Tische: {{ kunden|length }}</p>
     </div>
     <div id="freeCapacity">Gesamtkapazität: <span id="totalCapacityValue">{{selected_login.fortoeisixtable}}</span></div>
+
+    <div class="container">
+        <a href="{% url 'anzeigen' %}" class="button-link" style="position: absolute; top: 20px; right: 20px;">Zurück zu Hauptseite</a>
+    </div>
     <script>
         // JavaScript, um die Differenz zu berechnen
         var totalCapacity = parseInt(document.getElementById('totalCapacityValue').innerText);

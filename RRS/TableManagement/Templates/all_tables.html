@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alle Tische</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .table-details {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-details p {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .table-details p:nth-child(even) {
+            background-color: gainsboro;
+        }
+
+        .table-details p:hover {
+            background-color: #e6e6e6;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007BFF;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .button-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>History</h1>
+
+        <div class="table-details">
+            {% for row in kunden %}
+                <p>Tischnummer: {{ row.table_number }}:<br> Name:{{ row.kunde }}<br>Anzahl:{{ row.guests }}<br>Erscheinungszeitpunkt:{{ row.date }},<br>Uhrzeit: {{ row.time }}<br>Status: {{ row.status }}</p>
+            {% endfor %}
+        </div>
+
+        <div>
+            <a href="{% url 'anzeigen' %}" class="button-link">Zurück zu besetzten Tischen</a>
+        </div>
+    </div>
+</body>
+</html>

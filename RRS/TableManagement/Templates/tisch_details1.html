@@ -42,7 +42,7 @@
         }
 
         #freeCapacity, #totalCapacity, #capacityDifference {
-            background-color: #ff6347; /* Hellrot */
+            background-color: #ff6347;
             color: white;
             padding: 5px 10px;
             border-radius: 10px;
@@ -61,11 +61,27 @@
         #capacityDifference {
             top: 90px;
         }
+
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007BFF;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .button-link:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-
         <h1>Aktuell besetzte Tische</h1>
 
         <div class="table-details">
@@ -74,9 +90,15 @@
             {% endfor %}
         </div>
 
-        <p id="totalCapacity">Anzahl der Zeilen: {{ kunden|length }}</p>
+        <p id="totalCapacity">Anzahl der besetzten Tische: {{ kunden|length }}</p>
     </div>
     <div id="freeCapacity">Gesamtkapazität: <span id="totalCapacityValue">{{ selected_login.onetofortable }}</span></div>
+    <div class="container">
+        <a href="{% url 'anzeigen' %}" class="button-link" style="position: absolute; top: 20px; right: 20px;">Zurück zu Hauptseite</a>
+    </div>
+    
+
+
     <script>
         // JavaScript, um die Differenz zu berechnen
         var totalCapacity = parseInt(document.getElementById('totalCapacityValue').innerText);

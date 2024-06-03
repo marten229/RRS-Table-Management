@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from TableManagement.views import tishmanage,anzeigen,tisch_details_one,tisch_details_two,tisch_details_three,tisch_details_four
+from TableManagement.views import tishmanage,anzeigen,tisch_details_one,tisch_details_two,tisch_details_three,tisch_details_four,all_tables,all_tish
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tischverwaltung/',tishmanage),
@@ -25,4 +25,6 @@ urlpatterns = [
     path('details2/', tisch_details_two,name='tisch_details2'), 
     path('details3/', tisch_details_three,name='tisch_details3'),  
     path('details4/', tisch_details_four,name='tisch_details4'),  
+    path('all-tables/', all_tables, name='all_tables'),
+    path('all-tish/', all_tish, name='all_tish'),
 ]

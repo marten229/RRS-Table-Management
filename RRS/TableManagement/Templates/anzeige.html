@@ -3,53 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anzeige</title>
+    <title>Restaurant Reservierung</title>
     <style>
-        .button-link {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
         }
 
-        .button-link:hover {
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: #343a40;
+            text-align: center;
+        }
+
+        p {
+            margin: 0;
+            color: #6c757d;
+        }
+
+        .menu-link {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #007bff;
+            padding: 15px 25px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: block;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-link:hover {
             background-color: #0056b3;
+        }
+
+        .menu-link-container {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
- 
-    <h1>Alle Überscihten</h1>
-    <h2>Kundenübersicht</h2>
-    {% for row in all_kunde %}
-        <h3>kunde: {{ row.kunde}}</h3>
-        <p>restaurant: {{ row.restaurant}}</p>
-        <p>email: {{ row.email}}</p>
-        <p>phone: {{ row.phone}}</p>
-        <p>date: {{ row.date}}</p>
-        <p>time: {{ row.time}}</p>
-        <p>guests: {{ row.guests}}</p>
-        <p>table_number: {{ row.table_number}}</p>
-        <p>special_requests: {{ row.special_requests}}</p>
-    {% endfor %}
-
-
-    <h2>Restaurantkapazität</h2>
-    {% if selected_login %}
-    <div>
-        <h3>Restaurant: {{ selected_login.name }}</h3>
-        <p>Gesamtkapazitäten: {{ selected_login.Totaltable_number }}</p>
-        <a href="{% url 'tisch_details1'%}" class="button-link"><p>Anzahl der Tische für 1-4 Personen: {{ selected_login.onetofortable }}</p></a>
-        <a href="{% url 'tisch_details2'%}" class="button-link"><p>Anzahl der Tische für 4-6 Personen: {{ selected_login.fortoeisixtable }}</p></a>
-        <a href="{% url 'tisch_details3'%}" class="button-link"><p>Anzahl der Tische für 6-8 Personen: {{ selected_login.sixtoeighttable }}</p></a>
-        <a href="{% url 'tisch_details4'%}" class="button-link"><p>Anzahl der Tische für mehr als 8 Personen: {{ selected_login.morthaneight }}</p></a>
+    <div class="container">
+        <h1>Willkommen bei "Losteria"</h1>
+        <h2>Restaurantkapazität</h2>
+        {% if selected_login %}
+        <div>
+            <h3>Restaurant: {{ selected_login.name }}</h3>
+            <p>Gesamtkapazitäten: {{ selected_login.Totaltable_number }}</p>
+            <a href="{% url 'tisch_details1'%}" class="menu-link">Tischreservierungen für 1-4 Personen</a>
+            <a href="{% url 'tisch_details2'%}" class="menu-link" style="background-color: #28a745;">Tischreservierungen für 4-6 Personen</a>
+            <a href="{% url 'tisch_details3'%}" class="menu-link" style="background-color: #dc3545;">Tischreservierungen für 6-8 Personen</a>
+            <a href="{% url 'tisch_details4'%}" class="menu-link" style="background-color: #ffc107;">Tischreservierungen für mehr als 8 Personen</a>
+        </div>
+        {% else %}
+        <p>Das Restaurant "Losteria" wurde nicht gefunden.</p>
+        {% endif %}
+        <div class="menu-link-container">
+            <a href="{% url 'all_tables' %}" style="background-color: pink;" class="menu-link">Alle Reservierungen anzeigen</a>
+            <a href="{% url 'all_tish' %}" style="background-color: blue;" class="menu-link" >Alle Tische anzeigen</a>
+        </div>
     </div>
-    {% else %}
-    <p>Das Restaurant "Losteria" wurde nicht gefunden.</p>
-    {% endif %}
-
 </body>
 </html>
