@@ -29,6 +29,8 @@ class Table(models.Model):
     guests = models.IntegerField()
     special_requests = models.TextField(blank=True)
     table_number = models.IntegerField()
+    size = models.IntegerField()
+    count=models.IntegerField()
 
     def __str__(self):
         return f"Reservation for {self.kunde} at {self.restaurant.name} on {self.date} at {self.time}"
