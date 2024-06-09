@@ -1,11 +1,6 @@
 from django.db import models
-
-class Restaurant(models.Model):
-    name = models.CharField(max_length=100)
-    table_number = models.IntegerField()
-
-    def __str__(self):
-        return self.name
+from RestaurantManagement.models import Restaurant
+from ReservationManagement.models import Reservation
     
 class RestaurantLogin(models.Model):
     name = models.CharField(max_length=100)
@@ -21,13 +16,7 @@ class RestaurantLogin(models.Model):
 
 class Table(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    kunde = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
-    date = models.DateField()
-    time = models.TimeField()
-    guests = models.IntegerField()
-    special_requests = models.TextField(blank=True)
+    reservation=models.ForeignKey(Reservation, on_delete=models.CASCADE)
     table_number = models.IntegerField()
     size = models.IntegerField()
     count=models.IntegerField()

@@ -54,12 +54,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Willkommen bei "Losteria"</h1>
-        <h2>Restaurantkapazität</h2>
+        <h1>Willkommen {{ selected_restaurant_name }}</h1>
         {% if selected_login %}
         <div>
-            <h3>Restaurant: {{ selected_login.name }}</h3>
-            <p>Gesamtkapazitäten: {{ selected_login.Totaltable_number }}</p>
             <a href="{% url 'tisch_details1'%}" class="menu-link">Tischreservierungen für 1-4 Personen</a>
             <a href="{% url 'tisch_details2'%}" class="menu-link" style="background-color: #28a745;">Tischreservierungen für 4-6 Personen</a>
             <a href="{% url 'tisch_details3'%}" class="menu-link" style="background-color: #dc3545;">Tischreservierungen für 6-8 Personen</a>
