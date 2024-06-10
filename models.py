@@ -20,6 +20,3 @@ class Table(models.Model):
     table_number = models.IntegerField()
     size = models.IntegerField()
     count=models.IntegerField()
-
-    def __str__(self):
-        return f"Reservation for {self.kunde} at {self.restaurant.name} on {self.date} at {self.time}"
