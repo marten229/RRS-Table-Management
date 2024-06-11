@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Table Detail</title>
+    <title>Tisch-Details</title>
 </head>
 <body>
-    <h1>Table {{ table.id }}</h1>
+    <h1>Tisch {{ table.id }}</h1>
     <p>Status: 
         {% if is_available %}
-            Available
+            Verfügbar
         {% else %}
-            Occupied
+            Besetzt
         {% endif %}
     </p>
-    <h2>Reservations</h2>
+    <p>Größe: {{ table.size }}</p>
+    <h2>Reservierungen</h2>
     <ul>
         {% for seating in reservations %}
-        <li>{{ seating.reservation.name }} - {{ seating.start_time }} to {{ seating.end_time }}</li>
+        <li>
+            {{ seating.reservation.name }} - {{ seating.start_time }} bis {{ seating.end_time }}
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="seating_plan_id" value="{{ seating.id }}">
+                <button type="submit" name="remove_reservation">Entfernen</button>
+            </form>
+        </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'table_list' table.restaurant.id %}">Back to table list</a>
+
+    <h2>Neue Reservierung zuweisen</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="assign_reservation">Reservierung zuweisen</button>
+    </form>
+
+    <a href="{% url 'table_list' table.restaurant.id %}">Zurück zur Tischliste</a>
 </body>
 </html>

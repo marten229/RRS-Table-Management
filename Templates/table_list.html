@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Table List</title>
+    <meta http-equiv="refresh" content="60">
+    <title>Tisch Übersicht</title>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             const socket = new WebSocket('ws://' + window.location.host + '/ws/tables/');
@@ -18,15 +19,15 @@
     </script>
 </head>
 <body>
-    <h1>Tables</h1>
+    <h1>Tische</h1>
     <ul>
         {% for table in tables %}
         <li>
             <a href="{% url 'table_detail' table.id %}">Table {{ table.id }}</a> - 
             {% if table.is_available %}
-                Available
+                Verfügbar
             {% else %}
-                Occupied
+                Besetzt
             {% endif %}
         </li>
         {% endfor %}
