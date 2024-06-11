@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table List</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const socket = new WebSocket('ws://' + window.location.host + '/ws/tables/');
+            
+            socket.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                document.location.reload();
+            };
+            
+            socket.onclose = function(e) {
+                console.error('Chat socket closed unexpectedly');
+            };
+        });
+    </script>
+</head>
+<body>
+    <h1>Tables</h1>
+    <ul>
+        {% for table in tables %}
+        <li>
+            <a href="{% url 'table_detail' table.id %}">Table {{ table.id }}</a> - 
+            {% if table.is_available %}
+                Available
+            {% else %}
+                Occupied
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

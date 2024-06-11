@@ -1,0 +1,80 @@
+<!-- templates/generate_and_view_plans.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sitzplan und Personalplan</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .generate-button {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Datum: {{ date }}</h2>
+
+    <form method="post" action="{% url 'generate_and_view_plans' restaurant.id %}">
+        {% csrf_token %}
+        <button type="submit" class="generate-button">Sitzplan und Personalplan erstellen</button>
+    </form>
+
+    {% if seating_plans %}
+        <h3>Sitzplan</h3>
+        <table>
+            <tr>
+                <th>Tischnummer</th>
+                <th>Tisch Größe</th>
+                <th>Name</th>
+                <th>Start</th>
+                <th>Ende</th>
+            </tr>
+            {% for plan in seating_plans %}
+            <tr>
+                <td>{{ plan.table.id }}</td>
+                <td>{{ plan.table.size }}</td>
+                <td>{{ plan.reservation.name }}</td>
+                <td>{{ plan.start_time }}</td>
+                <td>{{ plan.end_time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if staff_schedules %}
+        <h3>Personalplan</h3>
+        <table>
+            <tr>
+                <th>Mitarbeitername</th>
+                <th>Schicht Beginn</th>
+                <th>Schicht Ende</th>
+            </tr>
+            {% for schedule in staff_schedules %}
+            <tr>
+                <td>{{ schedule.staff.username }}</td>
+                <td>{{ schedule.shift_start }}</td>
+                <td>{{ schedule.shift_end }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>

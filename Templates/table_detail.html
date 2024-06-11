@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Detail</title>
+</head>
+<body>
+    <h1>Table {{ table.id }}</h1>
+    <p>Status: 
+        {% if is_available %}
+            Available
+        {% else %}
+            Occupied
+        {% endif %}
+    </p>
+    <h2>Reservations</h2>
+    <ul>
+        {% for seating in reservations %}
+        <li>{{ seating.reservation.name }} - {{ seating.start_time }} to {{ seating.end_time }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'table_list' table.restaurant.id %}">Back to table list</a>
+</body>
+</html>

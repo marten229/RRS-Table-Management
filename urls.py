@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from TableManagement.views import tishmanage,anzeigen,tisch_details_one,tisch_details_two,tisch_details_three,tisch_details_four,all_tables,all_tish
+from TableManagement import views
 urlpatterns = [
     path('tischverwaltung/',tishmanage),
     path('anzeige/', anzeigen,name='anzeigen'), 
@@ -26,4 +27,7 @@ urlpatterns = [
     path('details4/', tisch_details_four,name='tisch_details4'),  
     path('all-tables/', all_tables, name='all_tables'),
     path('all-tish/', all_tish, name='all_tish'),
+    path('generate_and_view_plans/<int:pk>/', views.generate_and_view_plans, name='generate_and_view_plans'),
+    path('restaurants/<int:restaurant_id>/tables/', views.table_list, name='table_list'),
+    path('tables/<int:table_id>/', views.table_detail, name='table_detail'),
 ]
