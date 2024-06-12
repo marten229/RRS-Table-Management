@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tisch-Details</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Tisch-Details{% endblock %}
+
+{% block content %}
     <h1>Tisch {{ table.id }}</h1>
     <p>Status: 
         {% if is_available %}
@@ -26,6 +25,7 @@
         </li>
         {% endfor %}
     </ul>
+    <hr>
 
     <h2>Neue Reservierung zuweisen</h2>
     <form method="post">
@@ -35,5 +35,4 @@
     </form>
 
     <a href="{% url 'table_list' table.restaurant.id %}">Zurück zur Tischliste</a>
-</body>
-</html>
+{% endblock %}

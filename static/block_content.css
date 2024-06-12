@@ -1,0 +1,26 @@
+/* static/block_content.css */
+
+/* Stile für h1 */
+.block-content-container h1 {
+    font-size: 2em;
+    color: #333; /* oder eine andere Farbe deiner Wahl */
+}
+
+/* Stile für Links */
+.block-content-container a {
+    color: #0066cc; /* oder eine andere Farbe deiner Wahl */
+    text-decoration: none;
+}
+
+.block-content-container a:hover {
+    text-decoration: underline;
+}
+
+/* Stile für Verfügbarkeit/Besetzt */
+.block-content-container .status-verfuegbar {
+    color: green;
+}
+
+.block-content-container .status-besetzt {
+    color: red;
+}

@@ -37,11 +37,6 @@ class Table(models.Model):
             end_time__gte=current_time
         ).exists()
 
-        print(overlapping_reservations)
-        print(current_date, current_time)
-
-        #logger.debug(f"Table {self.id} availability check at {now}: {not overlapping_reservations}")
-
         return not overlapping_reservations
 
 class SeatingPlan(models.Model):

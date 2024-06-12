@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from TableManagement import views
 urlpatterns = [
-    path('generate_and_view_plans/<int:pk>/', views.generate_and_view_plans, name='generate_and_view_plans'),
-    path('restaurants/<int:restaurant_id>/tables/', views.table_list, name='table_list'),
-    path('tables/<int:table_id>/', views.table_detail, name='table_detail'),
+    #path('generate_and_view_plans/<int:pk>/', views.generate_and_view_plans, name='generate_and_view_plans'),
+    #path('restaurants/<int:restaurant_id>/tables/', views.table_list, name='table_list'),
+    #path('tables/<int:table_id>/', views.table_detail, name='table_detail'),
 ]

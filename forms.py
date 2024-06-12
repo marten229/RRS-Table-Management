@@ -1,9 +1,12 @@
 from django import forms
+from django.utils import timezone
 from .models import Reservation, SeatingPlan
 
 class AssignReservationForm(forms.ModelForm):
+    current_date = timezone.localtime().date()
+    
     vorhandene_reservierung = forms.ModelChoiceField(
-        queryset=Reservation.objects.filter(seatingplan__isnull=True),  # Nur Reservierungen ohne Sitzplan
+        queryset=Reservation.objects.filter(seatingplan__isnull=True, datum=current_date),  # Nur Reservierungen ohne Sitzplan und am heutigen Tag
         required=False,
         label="Nicht zugewiesene Reservierungen"
     )

@@ -85,14 +85,21 @@ def generate_and_view_plans(request, pk):
     return render(request, 'generate_and_view_plans.html', context)
 
 
-def table_list(request, restaurant_id):
-    tables = Table.objects.filter(restaurant_id=restaurant_id)
-    return render(request, 'table_list.html', {'tables': tables})
+def table_list(request, pk):
+    restaurant = get_object_or_404(Restaurant, pk=pk)
+    tables = Table.objects.filter(restaurant=restaurant)
+    return render(request, 'table_list.html', {'tables': tables, 'restaurant': restaurant})
 
-def table_detail(request, table_id):
+def table_detail(request, pk, table_id):
+    restaurant = get_object_or_404(Restaurant, pk=pk)
     table = get_object_or_404(Table, id=table_id)
-    reservations = SeatingPlan.objects.filter(table=table).select_related('reservation')
-    
+    current_time = timezone.now()
+    reservations = SeatingPlan.objects.filter(
+        table=table,
+        reservation__datum__gte=current_time.date(),
+        start_time__gte=current_time.time()
+    ).select_related('reservation')
+
     table_availability = table.is_available()
 
     if request.method == 'POST':
@@ -113,7 +120,7 @@ def table_detail(request, table_id):
                         dauer=form.cleaned_data.get('neue_reservierung_dauer'),
                         anzahl_an_gästen=form.cleaned_data.get('neue_reservierung_gaeste')
                     )
-                
+
                 seating_plan = SeatingPlan.objects.create(
                     restaurant=table.restaurant,
                     table=table,
@@ -121,12 +128,12 @@ def table_detail(request, table_id):
                     start_time=reservation.uhrzeit,
                     end_time=(datetime.combine(datetime.min, reservation.uhrzeit) + timedelta(minutes=reservation.dauer)).time()
                 )
-                return redirect('table_detail', table_id=table.id)
+                return redirect('table_detail', pk=restaurant.id, table_id=table.id)
         elif 'remove_reservation' in request.POST:
             seating_plan_id = request.POST.get('seating_plan_id')
             seating_plan = get_object_or_404(SeatingPlan, id=seating_plan_id)
             seating_plan.delete()
-            return redirect('table_detail', table_id=table.id)
+            return redirect('table_detail', pk=restaurant.id, table_id=table.id)
     else:
         form = AssignReservationForm()
 
@@ -134,5 +141,6 @@ def table_detail(request, table_id):
         'table': table,
         'reservations': reservations,
         'is_available': table_availability,
-        'form': form
+        'form': form,
+        'restaurant': restaurant
     })
