@@ -4,21 +4,6 @@ from RestaurantManagement.models import Restaurant
 from ReservationManagement.models import Reservation
 from UserManagement.models import User
 from datetime import datetime, date, timedelta
-import logging
-
-#logger = logging.getLogger(__name__)
-    
-class RestaurantLogin(models.Model):
-    name = models.CharField(max_length=100)
-    Totaltable_number = models.IntegerField()
-    onetofortable = models.IntegerField()
-    fortoeisixtable = models.IntegerField()
-    sixtoeighttable = models.IntegerField()
-    morthaneight= models.IntegerField()
-
-    
-    def __str__(self):
-        return self.name
 
 class Table(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
