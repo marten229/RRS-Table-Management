@@ -7,7 +7,11 @@ from UserManagement.models import User
 import datetime
 from datetime import datetime, time, timedelta
 from .forms import AssignReservationForm
+from django.contrib.auth.decorators import login_required
+from UserManagement.decorators import role_and_restaurant_required
 
+@login_required
+@role_and_restaurant_required(['administrator', 'restaurant_owner', 'restaurant_staff'])
 def create_seating_plan(restaurant, date):
     reservations = Reservation.objects.filter(restaurant=restaurant, datum=date).order_by('uhrzeit')
     tables = Table.objects.filter(restaurant=restaurant)
@@ -34,7 +38,8 @@ def create_seating_plan(restaurant, date):
             print(f"Could not allocate table for reservation: {reservation}")
 
     return seating_plans
-
+@login_required
+@role_and_restaurant_required(['administrator', 'restaurant_owner', 'restaurant_staff'])
 def create_staff_schedule(restaurant, date):
     reservations = Reservation.objects.filter(restaurant=restaurant, datum=date)
     staff_members = User.objects.filter(role='restaurant_staff', restaurants=restaurant)
@@ -59,6 +64,8 @@ def create_staff_schedule(restaurant, date):
 
     return staff_schedules
 
+@login_required
+@role_and_restaurant_required(['administrator', 'restaurant_owner', 'restaurant_staff'])
 def generate_and_view_plans(request, pk):
     restaurant = get_object_or_404(Restaurant, id=pk)
     date = timezone.now().date()
@@ -84,12 +91,15 @@ def generate_and_view_plans(request, pk):
     }
     return render(request, 'generate_and_view_plans.html', context)
 
-
+@login_required
+@role_and_restaurant_required(['administrator', 'restaurant_owner', 'restaurant_staff'])
 def table_list(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     tables = Table.objects.filter(restaurant=restaurant)
     return render(request, 'table_list.html', {'tables': tables, 'restaurant': restaurant})
 
+@login_required
+@role_and_restaurant_required(['administrator', 'restaurant_owner', 'restaurant_staff'])
 def table_detail(request, pk, table_id):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     table = get_object_or_404(Table, id=table_id)

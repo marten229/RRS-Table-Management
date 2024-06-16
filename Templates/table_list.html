@@ -14,7 +14,7 @@
     <ul>
         {% for table in tables %}
         <li>
-            <a href="{% url 'table_detail' restaurant.id table.id %}">Tisch {{ table.id }}</a> - 
+            <a href="{% url 'table_detail' restaurant.id table.id %}">Tisch {{ table.id }}</a> - {{ table.size }} Plätze -
             {% if table.is_available %}
                 <span class="status-verfuegbar">Verfügbar</span>
             {% else %}
