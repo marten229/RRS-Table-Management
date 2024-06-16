@@ -37,7 +37,7 @@ def is_a_table_available(restaurant):
 
     return None
 
-def is_a_table_available_with_size(restaurant, date, time, duration, party_size):
+""" def is_a_table_available_with_size(restaurant, date, time, duration, party_size):
     now = timezone.localtime()
     current_date = now.date()
     current_time = now.time()
@@ -50,7 +50,7 @@ def is_a_table_available_with_size(restaurant, date, time, duration, party_size)
     )
 
     if available_tables.exists():
-        return current_time
+        return current_time """
     
 def is_a_table_available_with_size(restaurant, date, time, duration, party_size):
     reservation_start = datetime.combine(date, time)
