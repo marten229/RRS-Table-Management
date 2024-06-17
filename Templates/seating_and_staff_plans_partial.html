@@ -1,0 +1,41 @@
+<!-- templates/seating_and_staff_plans_partial.html -->
+
+{% if seating_plans %}
+    <h3>Seating Plan</h3>
+    <table>
+        <tr>
+            <th>Table Number</th>
+            <th>Capacity</th>
+            <th>Reservation Name</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+        {% for plan in seating_plans %}
+        <tr>
+            <td>{{ plan.table.number }}</td>
+            <td>{{ plan.table.capacity }}</td>
+            <td>{{ plan.reservation.name }}</td>
+            <td>{{ plan.start_time }}</td>
+            <td>{{ plan.end_time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+{% if staff_schedules %}
+    <h3>Staff Schedule</h3>
+    <table>
+        <tr>
+            <th>Staff Name</th>
+            <th>Shift Start</th>
+            <th>Shift End</th>
+        </tr>
+        {% for schedule in staff_schedules %}
+        <tr>
+            <td>{{ schedule.staff.username }}</td>
+            <td>{{ schedule.shift_start }}</td>
+            <td>{{ schedule.shift_end }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Tisch-Details{% endblock %}
+
+{% block content %}
+    <h1>Tisch {{ table.id }}</h1>
+    <p>Status: 
+        {% if table.is_active %}
+            {% if is_available %}
+                Verfügbar
+            {% else %}
+                Besetzt
+            {% endif %}
+        {% else %}
+            Deaktiviert
+        {% endif %}
+    </p>
+    <p>Größe: {{ table.size }}</p>
+    <h2>Reservierungen</h2>
+    <ul>
+        {% for seating in reservations %}
+        <li>
+            {% if seating.reservation.name %}
+                {{ seating.reservation.name }}
+            {% else %}
+                {{ seating.reservation.user.get_full_name }}
+            {% endif %}
+            - {{ seating.start_time }} bis {{ seating.end_time }} Uhr
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="seating_plan_id" value="{{ seating.id }}">
+                <button type="submit" name="remove_reservation">Entfernen</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <hr>
+
+    <h2>Neue Reservierung zuweisen</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="assign_reservation">Reservierung zuweisen</button>
+    </form>
+    <form method="post" style="margin-top: 20px;">
+        {% csrf_token %}
+        <button type="submit" name="toggle_table_status">
+            {% if table.is_active %}
+                Tisch deaktivieren
+            {% else %}
+                Tisch aktivieren
+            {% endif %}
+        </button>
+    </form>
+{% endblock %}

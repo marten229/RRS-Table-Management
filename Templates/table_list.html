@@ -1,0 +1,31 @@
+<!-- templates/SearchFilterFunctions/table_overview.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tisch Übersicht{% endblock %}
+{% block extra_scripts %}
+<link rel="stylesheet" type="text/css" href="{% static 'block_content.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="block-content-container">
+    <h1>Liste der Tische</h1>
+    <ul>
+        {% for table in tables %}
+        <li>
+            <a href="{% url 'table_detail' restaurant.id table.id %}">Tisch {{ table.id }}</a> - {{ table.size }} Plätze -
+            {% if table.is_available %}
+                <span class="status-verfuegbar">Verfügbar</span>
+            {% else %}
+            {% if not table.is_active %}
+                <span class="status-besetzt">Deaktiviert</span>
+            {%else%}
+                <span class="status-besetzt">Besetzt</span>
+            {% endif %}
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
