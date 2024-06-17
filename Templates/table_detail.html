@@ -5,10 +5,14 @@
 {% block content %}
     <h1>Tisch {{ table.id }}</h1>
     <p>Status: 
-        {% if is_available %}
-            Verfügbar
+        {% if table.is_active %}
+            {% if is_available %}
+                Verfügbar
+            {% else %}
+                Besetzt
+            {% endif %}
         {% else %}
-            Besetzt
+            Deaktiviert
         {% endif %}
     </p>
     <p>Größe: {{ table.size }}</p>
@@ -16,7 +20,12 @@
     <ul>
         {% for seating in reservations %}
         <li>
-            {{ seating.reservation.name }} - {{ seating.start_time }} bis {{ seating.end_time }}
+            {% if seating.reservation.name %}
+                {{ seating.reservation.name }}
+            {% else %}
+                {{ seating.reservation.user.get_full_name }}
+            {% endif %}
+            - {{ seating.start_time }} bis {{ seating.end_time }} Uhr
             <form method="post" style="display:inline;">
                 {% csrf_token %}
                 <input type="hidden" name="seating_plan_id" value="{{ seating.id }}">
@@ -33,6 +42,14 @@
         {{ form.as_p }}
         <button type="submit" name="assign_reservation">Reservierung zuweisen</button>
     </form>
-
-    <a href="{% url 'table_list' table.restaurant.id %}">Zurück zur Tischliste</a>
+    <form method="post" style="margin-top: 20px;">
+        {% csrf_token %}
+        <button type="submit" name="toggle_table_status">
+            {% if table.is_active %}
+                Tisch deaktivieren
+            {% else %}
+                Tisch aktivieren
+            {% endif %}
+        </button>
+    </form>
 {% endblock %}

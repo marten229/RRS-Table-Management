@@ -18,7 +18,11 @@
             {% if table.is_available %}
                 <span class="status-verfuegbar">Verfügbar</span>
             {% else %}
+            {% if not table.is_active %}
+                <span class="status-besetzt">Deaktiviert</span>
+            {%else%}
                 <span class="status-besetzt">Besetzt</span>
+            {% endif %}
             {% endif %}
         </li>
         {% endfor %}

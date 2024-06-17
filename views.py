@@ -10,11 +10,9 @@ from .forms import AssignReservationForm
 from django.contrib.auth.decorators import login_required
 from UserManagement.decorators import role_and_restaurant_required
 
-@login_required
-@role_and_restaurant_required(['administrator', 'restaurant_owner', 'restaurant_staff'])
 def create_seating_plan(restaurant, date):
     reservations = Reservation.objects.filter(restaurant=restaurant, datum=date).order_by('uhrzeit')
-    tables = Table.objects.filter(restaurant=restaurant)
+    tables = Table.objects.filter(restaurant=restaurant, is_active=True) 
     seating_plans = []
 
     for reservation in reservations:
@@ -38,8 +36,7 @@ def create_seating_plan(restaurant, date):
             print(f"Could not allocate table for reservation: {reservation}")
 
     return seating_plans
-@login_required
-@role_and_restaurant_required(['administrator', 'restaurant_owner', 'restaurant_staff'])
+
 def create_staff_schedule(restaurant, date):
     reservations = Reservation.objects.filter(restaurant=restaurant, datum=date)
     staff_members = User.objects.filter(role='restaurant_staff', restaurants=restaurant)
@@ -143,6 +140,10 @@ def table_detail(request, pk, table_id):
             seating_plan_id = request.POST.get('seating_plan_id')
             seating_plan = get_object_or_404(SeatingPlan, id=seating_plan_id)
             seating_plan.delete()
+            return redirect('table_detail', pk=restaurant.id, table_id=table.id)
+        elif 'toggle_table_status' in request.POST:
+            table.is_active = not table.is_active
+            table.save()
             return redirect('table_detail', pk=restaurant.id, table_id=table.id)
     else:
         form = AssignReservationForm()

@@ -9,8 +9,11 @@ class Table(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     size = models.IntegerField()
     count = models.IntegerField()
+    is_active = models.BooleanField(default=True)
 
     def is_available(self):
+        if not self.is_active:
+            return False
         now = timezone.localtime()
         current_time = now.time()
         current_date = now.date()
