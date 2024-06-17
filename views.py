@@ -45,8 +45,8 @@ def create_staff_schedule(restaurant, date):
     total_customers = sum([r.anzahl_an_gästen for r in reservations])
     num_staff_needed = max(1, total_customers // 10)
 
-    shift_start = datetime.combine(date, time(18, 0))
-    shift_end = datetime.combine(date, time(23, 0))
+    shift_start = datetime.combine(date, restaurant.opening_time)
+    shift_end = datetime.combine(date, restaurant.closing_time)
 
     for i in range(num_staff_needed):
         if i < len(staff_members):

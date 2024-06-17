@@ -6,7 +6,7 @@ from UserManagement.models import User
 from datetime import datetime, date, timedelta
 
 class Table(models.Model):
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, related_name='tables', on_delete=models.CASCADE)
     size = models.IntegerField()
     is_active = models.BooleanField(default=True)
 
@@ -25,6 +25,7 @@ class Table(models.Model):
         ).exists()
 
         return not overlapping_reservations
+
 
 class SeatingPlan(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
